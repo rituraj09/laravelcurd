@@ -1933,10 +1933,116 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Directory",
+  data: function data() {
+    return {
+      lists: [],
+      item: {
+        name: "",
+        phone: "",
+        email: ""
+      },
+      msgSuc: ""
+    };
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.fetchAll();
+  },
+  methods: {
+    fetchAll: function fetchAll() {
+      var _this = this;
+
+      axios.get('api/tel').then(function (res) {
+        return _this.lists = res.data;
+      });
+    },
+    savetel: function savetel() {
+      var _this2 = this;
+
+      try {
+        axios.post('api/tel', this.item).then(function (res) {
+          _this2.item = {
+            name: "",
+            phone: "",
+            email: ""
+          };
+          _this2.msgSuc = "Save Successfully";
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 });
 
@@ -37561,37 +37667,235 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("\n                    Directory\n                "),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.msgSuc) +
+                "\n                    "
+            ),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.item.name,
+                    expression: "item.name",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "name",
+                  placeholder: "Enter your name",
+                },
+                domProps: { value: _vm.item.name },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.item, "name", $event.target.value)
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "phone" } }, [_vm._v("Phone")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.item.phone,
+                    expression: "item.phone",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "phone",
+                  placeholder: "Enter your phone",
+                },
+                domProps: { value: _vm.item.phone },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.item, "phone", $event.target.value)
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.item.email,
+                    expression: "item.email",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "email",
+                  placeholder: "Enter your email",
+                },
+                domProps: { value: _vm.item.email },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.item, "email", $event.target.value)
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-sm btn-success btn-block",
+                on: { click: _vm.savetel },
+              },
+              [_vm._v("Save")]
+            ),
+          ]),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _vm.lists.length > 0
+      ? _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-md-8" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-header" }, [
+                _vm._v(
+                  "\n                    View Directory\n                "
+                ),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c(
+                  "table",
+                  { staticClass: "table table-bordered" },
+                  [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._l(_vm.lists, function (item) {
+                      return _c("tr", { key: item.id }, [
+                        _c("td", [
+                          _vm._v(
+                            " \n                                " +
+                              _vm._s(item.id) +
+                              "\n                            "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                                " +
+                              _vm._s(item.name) +
+                              "\n                            "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                                " +
+                              _vm._s(item.phone) +
+                              "\n                            "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " \n                                " +
+                              _vm._s(item.email) +
+                              "\n                            "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(1, true),
+                      ])
+                    }),
+                  ],
+                  2
+                ),
+              ]),
+            ]),
+          ]),
+        ])
+      : _vm._e(),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("\n                    Directory\n                "),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "name" } }, [_vm._v("Name")]),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "name",
-                    placeholder: "Enter your name",
-                  },
-                }),
-              ]),
-            ]),
-          ]),
-        ]),
+    return _c("tr", [
+      _c("th", [
+        _vm._v(
+          "\n                               Sl\n                            "
+        ),
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _vm._v(
+          "\n                                Name\n                            "
+        ),
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _vm._v(
+          "\n                                Phone\n                            "
+        ),
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _vm._v(
+          "\n                                Email\n                            "
+        ),
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _vm._v(
+          "\n                               Action\n                            "
+        ),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("button", { staticClass: "btn btn-warning btn-sm mr-2" }, [
+        _vm._v("Edit"),
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-danger btn-sm" }, [
+        _vm._v("Delete"),
       ]),
     ])
   },

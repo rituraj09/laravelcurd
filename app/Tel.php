@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tel extends Model
 {
     //
-    protected $guarded =[];
+    protected $table    	= 'tels';
+    public $timestamps = false;
+    protected $guarded =['_token'];
 }
