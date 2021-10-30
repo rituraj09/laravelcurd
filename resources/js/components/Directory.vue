@@ -37,13 +37,13 @@
                   v-model="item.email"
                 />
               </div>
-               <div v-if="error.length>0" class="form-group text-danger">
-                   <h3>Please fix the following errors</h3>
-                   <ul>
-                       <li v-for="e in error" v-bind:key="e.id">
-                            {{e}}
-                       </li>
-                   </ul>
+              <div v-if="error.length > 0" class="form-group text-danger">
+                <h3>Please fix the following errors</h3>
+                <ul>
+                  <li v-for="e in error" v-bind:key="e.id">
+                    {{ e }}
+                  </li>
+                </ul>
               </div>
               <button class="btn btn-sm btn-success btn-block">
                 {{ isEditing ? "Update" : "Save" }}
@@ -122,6 +122,7 @@ export default {
         phone: "",
         email: "",
       },
+
       msgSuc: null,
       temp_id: null,
       isEditing: false,
@@ -130,25 +131,35 @@ export default {
   mounted() {
     this.fetchAll();
   },
+
   methods: {
     fetchAll() {
       axios.get("api/tel").then((res) => (this.lists = res.data));
     },
     savetel(e) {
-       this.error=[];
+      this.error = [];
       e.preventDefault();
       if (this.item.name == "") {
-          this.error.push("Enter your Name");  
+        this.error.push("Enter your Name");
       }
       if (this.item.phone == "") {
-         this.error.push("Enter your phone"); 
+        this.error.push("Enter your phone");
+      }
+      else{
+          if (!this.validmobile(this.item.phone)) {
+                this.error.push("Invalid Mobile Number");
+            } 
       }
       if (this.item.email == "") {
-         this.error.push("Enter your email"); 
-      }
-      if(this.error.length>0)
-      {
-          return false;
+        this.error.push("Enter your email");
+      } 
+      else {
+            if (!this.validEmail(this.item.email)) {
+                this.error.push("Invalid Email");
+            }
+        }
+      if (this.error.length > 0) {
+        return false;
       }
       let method = axios.post;
       let url = "api/tel";
@@ -169,7 +180,7 @@ export default {
           this.fetchAll();
           this.temp_id = null;
           this.isEditing = false;
-          this.error=[];
+          this.error = [];
         });
       } catch (e) {
         console.log(e);
@@ -184,10 +195,10 @@ export default {
       this.temp_id = tel.id;
       this.isEditing = true;
       this.msgSuc = null;
-        this.error=[];
+      this.error = [];
     },
     canceEdit(e) {
-    this.error=[];
+      this.error = [];
       e.preventDefault();
       this.item = {
         name: "",
@@ -197,18 +208,25 @@ export default {
       this.temp_id = null;
       this.isEditing = false;
       this.msgSuc = null;
-      
     },
     deleteTel(id) {
       try {
         axios.delete("api/tel/" + id).then((res) => {
           this.fetchAll();
           this.msgSuc = "Delete Successfully";
-          this.error=[];
+          this.error = [];
         });
       } catch (e) {
         console.log(e);
       }
+    },
+    validEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    },
+    validmobile(phone) {
+        var re = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$/;
+        return re.test(phone);
     },
   },
 };

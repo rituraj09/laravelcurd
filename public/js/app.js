@@ -2059,10 +2059,18 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.item.phone == "") {
         this.error.push("Enter your phone");
+      } else {
+        if (!this.validmobile(this.item.phone)) {
+          this.error.push("Invalid Mobile Number");
+        }
       }
 
       if (this.item.email == "") {
         this.error.push("Enter your email");
+      } else {
+        if (!this.validEmail(this.item.email)) {
+          this.error.push("Invalid Email");
+        }
       }
 
       if (this.error.length > 0) {
@@ -2134,6 +2142,14 @@ __webpack_require__.r(__webpack_exports__);
       } catch (e) {
         console.log(e);
       }
+    },
+    validEmail: function validEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    validmobile: function validmobile(phone) {
+      var re = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$/;
+      return re.test(phone);
     }
   }
 });
@@ -38479,9 +38495,9 @@ var render = function () {
                       _vm._l(_vm.error, function (e) {
                         return _c("li", { key: e.id }, [
                           _vm._v(
-                            "\n                          " +
+                            "\n                  " +
                               _vm._s(e) +
-                              "\n                     "
+                              "\n                "
                           ),
                         ])
                       }),
